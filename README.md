@@ -1,4 +1,4 @@
-# TaskNet Task Manager
+# TaskNet - Task Manager App
 
 TaskNet is a small full-stack task management application built as a learning project. The main goal was to learn the Angular ecosystem and compare its patterns with the React experience I already have, while also practicing how a frontend communicates with a Node.js API and a relational database.
 
@@ -46,6 +46,8 @@ The backend makes the exercise more complete by adding REST API design, request 
 - **MySQL**: Stores task records in a relational database.
 - **Prisma 7**: Defines the data model and provides a typed database client.
 - **MariaDB adapter**: Allows Prisma to connect to the MySQL-compatible database through `@prisma/adapter-mariadb`.
+
+<img width="1866" height="845" alt="image" src="https://github.com/user-attachments/assets/462e0ba2-565c-4fca-ad71-0375b1e4ee5e" />
 
 ## Project Structure
 
