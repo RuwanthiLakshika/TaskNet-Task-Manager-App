@@ -1,0 +1,83 @@
+<section class="tasks-shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Personal workspace</p>
+      <h1>Today, made manageable.</h1>
+      <p class="intro">A clear place for the work in front of you.</p>
+    </div>
+    <div class="date-mark">{{ tasks().length | number }}<span>tasks</span></div>
+  </header>
+
+  <div class="summary" aria-label="Task summary">
+    <div><span class="dot all"></span><strong>{{ tasks().length }}</strong><span>Total</span></div>
+    <div><span class="dot pending"></span><strong>{{ pendingCount() }}</strong><span>In progress</span></div>
+    <div><span class="dot done"></span><strong>{{ completedCount() }}</strong><span>Complete</span></div>
+  </div>
+
+  <div class="workspace">
+    <div class="list-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">Your queue</p>
+          <h2>Tasks</h2>
+        </div>
+        <span class="count-badge">{{ visibleTasks().length }} shown</span>
+      </div>
+
+      <div class="toolbar">
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input type="search" placeholder="Search tasks" [value]="searchTerm()" (input)="setSearchTerm($event)" />
+        </label>
+        <select aria-label="Filter tasks" [value]="statusFilter()" (change)="setStatusFilter($event)">
+          <option value="all">All tasks</option>
+          <option value="open">Open</option>
+          <option value="complete">Complete</option>
+        </select>
+      </div>
+
+      @if (isLoading()) {
+        <p class="state-message">Loading your tasks...</p>
+      } @else if (visibleTasks().length === 0) {
+        <p class="state-message">Your task list is clear. Add something worth doing.</p>
+      } @else {
+        <div class="task-list">
+          @for (task of visibleTasks(); track task.id) {
+            <article class="task-card" [class.completed]="task.completed">
+              <input class="task-checkbox" type="checkbox" [checked]="task.completed" [attr.aria-label]="task.completed ? 'Mark as open' : 'Mark as complete'" (change)="toggleCompleted(task)" />
+              @if (editingTaskId() === task.id) {
+                <div class="edit-fields">
+                  <input [value]="editTitle()" (input)="editTitle.set($any($event.target).value)" aria-label="Task title" />
+                  <input [value]="editDescription()" (input)="editDescription.set($any($event.target).value)" aria-label="Task description" />
+                </div>
+                <div class="actions">
+                  <button class="text-button save" type="button" (click)="saveTask(task)">Save</button>
+                  <button class="text-button" type="button" (click)="cancelEditing()">Cancel</button>
+                </div>
+              } @else {
+                <div class="task-copy">
+                  <h3>{{ task.title }}</h3>
+                  @if (task.description) {
+                    <p>{{ task.description }}</p>
+                  }
+                </div>
+                <span class="status">{{ task.completed ? 'Complete' : 'Open' }}</span>
+                <div class="actions">
+                  <button class="icon-button" type="button" aria-label="Edit task" (click)="startEditing(task)">Edit</button>
+                  <button class="icon-button danger" type="button" aria-label="Delete task" (click)="removeTask(task)">Delete</button>
+                </div>
+              }
+            </article>
+          }
+        </div>
+      }
+    </div>
+
+    <aside class="form-panel">
+      <p class="eyebrow">New entry</p>
+      <h2>Add a task</h2>
+      <p class="panel-copy">Turn an intention into a clear next action.</p>
+      <app-task-form (taskCreated)="addTask($event)"></app-task-form>
+    </aside>
+  </div>
+</section>

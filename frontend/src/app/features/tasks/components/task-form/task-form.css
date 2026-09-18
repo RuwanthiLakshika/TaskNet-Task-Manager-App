@@ -1,0 +1,11 @@
+.task-form { display: grid; gap: 18px; margin-top: 26px; }
+.field { display: grid; gap: 8px; }
+label { color: #d7ded8; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+label span { color: #aebdb6; font-size: 0.72rem; font-weight: 500; text-transform: none; }
+input, textarea { width: 100%; border: 1px solid #d3dfd7; border-radius: 10px; background: #fffdf8; color: #17221f; outline: none; padding: 13px 14px; transition: border-color 160ms ease, box-shadow 160ms ease; }
+input:focus, textarea:focus { border-color: #e9b949; box-shadow: 0 0 0 3px rgba(233, 185, 73, 0.18); }
+textarea { resize: vertical; }
+button { border: 0; border-radius: 10px; background: #e9b949; color: #27373d; cursor: pointer; font-weight: 700; padding: 14px 18px; transition: transform 160ms ease, background 160ms ease; }
+button:hover:not(:disabled) { background: #f2c96a; transform: translateY(-1px); }
+button:disabled { cursor: wait; opacity: 0.65; }
+.error { margin: 0; color: #b64d3d; font-size: 0.85rem; }
